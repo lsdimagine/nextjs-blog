@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next'
 import Head from 'next/head';
 import Layout from '../../components/layout'
 import Date from '../../components/date';
@@ -20,7 +21,7 @@ const Post = ({postData}) => {
   </Layout>)
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async() => {
   const paths = getAllPostIds()
   return {
     paths,
@@ -28,7 +29,7 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps = async({ params }) => {
   const postData = await getPostData(params.id)
   return {
     props: {
